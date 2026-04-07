@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+<meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<style>
+.link {
+text-align:center;
+}
+</style>
+
+<body>
+
+<link rel="stylesheet" href="Styles.css">
+
+<h1>Stuff about me</h1>
+
+ <section class="welcome-card">
+      <h2>Personalized Welcome</h2>
+
+      <form id="nameForm" class="name-form">
+        <label for="nameInput">Enter your name:</label>
+        <input type="text" id="nameInput" name="nameInput" placeholder="Type your name here" required>
+        <button type="submit">Save Name</button>
+      </form>
+
+      <p id="welcomeMessage">Loading welcome message...</p>
+      <p id="lastVisitMessage"></p>
+    </section>
+
+<p>My name is Gavin Kiselburgh (he/him). I'm 18 years old. I'm mainly just your average gamer that wants to learn programming for better money down the line and I like coding. Not necessarily for any reason, it just interests me. I'm not too special, in my opinion. I mainly just game, eat, learn, and sleep. Not too much else. It's all good though. Test.</p>
+
+<img src="C:\Users\gwk77\Downloads\18741.jpg" alt="Me trying a suit for prom." width="114" height="202">
+
+<p>This is when I rented out a suit for prom. I look nice, right?</p>
+
+<img src="C:\Users\gwk77\Downloads\18742.jpg" alt="Me at Longhorn steakhouse." width="202" height="202">
+
+<p>This is actually pretty recent, like within last month recent. This is when I went to Longhorn steakhouse for the first time.</p>
+
+<table style="width:50%; margin-left:auto; margin-right:auto;">
+<tr>
+<th style="width:50%">Me</th>
+<th>Percentage</th>
+</tr>
+<tr>
+<td>Sleep</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>Learn</td>
+<td>25%</td>
+</tr>
+<tr>
+<td>Eat</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Game</td>
+<td>35%</td>
+</tr>
+</table>
+
+<p>The 25% of learning comes from the classes I'm taking currently as of writing this.</p>
+ 
+<dl>
+    <dt>English compostion 1 (ENG 1510)</dt>
+    <dd>- The basics of college level academic writing</dd>
+    <dt>Introduction to informal logic (PHI 1710)</dt>
+    <dd>- The class dedicated to learning how to think outside the box</dd>
+    <dt>Myth, magic, and religion (ANT 2750)</dt>
+    <dd>- The study of religion and sprinkles of magic and mythology</dd>
+    <dt>Front end web techonolgies (CIS 1440)</dt>
+    <dd>- An intro class to javascript, how the web works, and html</dd>
+</dl>
+ 
+<p>All of my classes line up with my plan, software egineering except for ANT 2750. That one was more of a personal interest as I like learning about mythology.</p>
+
+<p>Like previously mentioned, I'm a gamer. It's my favorite and technically, my only hobby. I like a lot of games. I guess you could say that I'm an all rounder. I like open world games the most though. For example, Middle Earth, Shadow of War (SoW). In SoW, it takes place in the lord of the rings where you play as Talion, The Gravewalker. He can't die (even if he's technically already dead) thanks to the trusty ring of power he yeilds. I love this game because of it's gameplay. I don't want to go too in depth, but if you're interested about the games I play or about SoW specifically...</p>
+
+<div class="link">
+
+<a href=Lolz.htm>Click this!</a>
+
+</div>
+
+<p>My favorite comic series has got to be Scott Pilgrim v.s. the world. Coincidently, The movie they made about it is my favorite movie. I love it because of the plot and how relatable it is. It follows Scott, A 23 year old who falls in love with Ramona Flowers. But in order to have her, he needs to defeat her 7 evil ex's. This story is based on the Author, Bryan Lee O'malley's experience which is why it's so relateable. It has so many real life struggles through it, mainly relationship struggles. For example, cheating and high egos. Not only do I like it for that, but it also has heavy video game influence.</p> 
+
+<img src="C:\Users\gwk77\Downloads\Scott Pilgrim Lol.jpg" width=124 height=162>
+
+<div class="link">
+
+<a href=https://www.barnesandnoble.com/b/series/scott-pilgrim-series/_/N-3055>Scott Pilgrim comics, in case you're interested.</a>
+
+</div>
+
+<p>Now, I don't really have anything else too interesting about me. But I do like listening to music! I'm kind of an all rounder when it comes to music, but I mainly listen to pop and rock. I like to listen to music when I go on walks. My favorite artists are Bryce savage and Neffex. If you want some good music, look up these guys! It's not everyone's cup of tea, but for me, I love these two!</p>
+
+<script>
+    const nameForm = document.getElementById('nameForm');
+    const nameInput = document.getElementById('nameInput');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const lastVisitMessage = document.getElementById('lastVisitMessage');
+
+    let weatherDescription = 'loading the weather';
+    const storedName = localStorage.getItem('visitorName');
+    const previousVisit = localStorage.getItem('lastVisit');
+
+    if (storedName) {
+      nameInput.value = storedName;
+    }
+
+    function getCurrentDateTime() {
+      const now = new Date();
+
+      const time = now.toLocaleTimeString('en-US', {
+        timeZone: 'America/New_York',
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+      const date = now.toLocaleDateString('en-US', {
+        timeZone: 'America/New_York'
+      });
+
+      const hourInET = Number(
+        now.toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          hour: 'numeric',
+          hour12: false
+        })
+      );
+
+      return { time, date, hourInET };
+    }
+
+    function getGreeting(hour) {
+      if (hour < 12) {
+        return 'Good morning';
+      }
+      if (hour < 18) {
+        return 'Good afternoon';
+      }
+      return 'Good evening';
+    }
+
+    function mapWeatherCodeToDescription(code) {
+      const weatherDescriptions = {
+        0: 'clear sky',
+        1: 'mainly clear',
+        2: 'partly cloudy',
+        3: 'overcast',
+        45: 'fog',
+        48: 'depositing rime fog',
+        51: 'light drizzle',
+        53: 'moderate drizzle',
+        55: 'dense drizzle',
+        56: 'light freezing drizzle',
+        57: 'dense freezing drizzle',
+        61: 'slight rain',
+        63: 'moderate rain',
+        65: 'heavy rain',
+        66: 'light freezing rain',
+        67: 'heavy freezing rain',
+        71: 'slight snow fall',
+        73: 'moderate snow fall',
+        75: 'heavy snow fall',
+        77: 'snow grains',
+        80: 'slight rain showers',
+        81: 'moderate rain showers',
+        82: 'violent rain showers',
+        85: 'slight snow showers',
+        86: 'heavy snow showers',
+        95: 'thunderstorm',
+        96: 'thunderstorm with slight hail',
+        99: 'thunderstorm with heavy hail'
+      };
+
+      return weatherDescriptions[code] || 'unknown weather';
+    }
+
+    async function fetchWeather() {
+      try {
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current_weather=true');
+        const data = await response.json();
+        weatherDescription = mapWeatherCodeToDescription(data.current_weather.weathercode);
+        updateWelcomeMessage();
+      }
+      catch (error) {
+        weatherDescription = 'weather data unavailable right now';
+        updateWelcomeMessage();
+      }
+    }
+
+    function updateWelcomeMessage() {
+      const { time, date, hourInET } = getCurrentDateTime();
+      const greeting = getGreeting(hourInET);
+      const visitorName = localStorage.getItem('visitorName') || 'guest';
+
+      welcomeMessage.textContent = greeting + ' ' + visitorName + '! It\'s ' + time + ' EST on ' + date + ', and it\'s ' + weatherDescription + ' right now in Detroit, Michigan.';
+
+      if (previousVisit) {
+        lastVisitMessage.textContent = 'Btw, you last visited on ' + previousVisit + ' EST.';
+      }
+      else {
+        lastVisitMessage.textContent = 'This looks like your first visit here!';
+      }
+    }
+
+    nameForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const enteredName = nameInput.value.trim();
+
+      if (enteredName !== '') {
+        localStorage.setItem('visitorName', enteredName);
+        updateWelcomeMessage();
+      }
+    });
+
+    updateWelcomeMessage();
+    fetchWeather();
+    setInterval(updateWelcomeMessage, 1000);
+
+    const { time, date } = getCurrentDateTime();
+    localStorage.setItem('lastVisit', date + ' at ' + time);
+</script>
+
+</body>
+</html>
